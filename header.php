@@ -24,11 +24,18 @@
 <?php wp_body_open(); ?>
 <div class="container">
     <div class="layout">
-        <!-- sidebar -->
         <header class="sidebar">
-            <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="brand">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/Vector.svg" alt="Brand logo" class="brand-logo" />
-            </a>
+            <div class="brand">
+                <?php
+                if ( has_custom_logo() ) :
+                    the_custom_logo();
+                else :
+                    ?>
+                    <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="brand-link">
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/Vector.svg" alt="Brand logo" class="brand-logo" />
+                    </a>
+                <?php endif; ?>
+            </div>
             <div class="menu-toggle">
                 <button class="menu-toggle-btn">Menu</button>
             </div>
@@ -40,18 +47,20 @@
                         'menu_id'        => 'primary-menu',
                         'container'      => false,
                         'menu_class'     => 'nav-list',
-                        // We will need a custom walker or dynamic logic to handle the <sup>01</sup> numbers if we want them perfect, 
-                        // but for now let's just output the standard menu.
                     )
                 );
                 ?>
             </nav>
             <div class="sidebar-footer">
                 <div class="sidebar-action">
-                    <a href="#" class="action-link">Download kit</a>
+                    <a href="<?php echo esc_url( get_theme_mod( 'redo_sidebar_action_1_url', '#' ) ); ?>" class="action-link">
+                        <?php echo esc_html( get_theme_mod( 'redo_sidebar_action_1_text', __( 'Download kit', 'redo-theme' ) ) ); ?>
+                    </a>
                 </div>
                 <div class="sidebar-action">
-                    <a href="#" class="action-link">Contact us</a>
+                    <a href="<?php echo esc_url( get_theme_mod( 'redo_sidebar_action_2_url', '#' ) ); ?>" class="action-link">
+                        <?php echo esc_html( get_theme_mod( 'redo_sidebar_action_2_text', __( 'Contact us', 'redo-theme' ) ) ); ?>
+                    </a>
                 </div>
             </div>
         </header>

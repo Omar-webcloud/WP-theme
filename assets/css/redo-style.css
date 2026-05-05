@@ -81,9 +81,14 @@ body {
   padding: 30px 0px 30px 32px;
 }
 
-.brand-logo {
+.brand-logo,
+.custom-logo {
   width: 51.01px;
-  height: 11.83px;
+  height: auto;
+}
+
+.custom-logo-link {
+  display: inline-block;
 }
 
 .menu-toggle {

@@ -108,3 +108,84 @@ function redo_theme_scripts() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'redo_theme_scripts' );
+/**
+ * Add Customizer settings.
+ */
+function redo_theme_customize_register( $wp_customize ) {
+	// Sidebar Section
+	$wp_customize->add_section( 'redo_theme_sidebar_options', array(
+		'title'    => __( 'Sidebar Options', 'redo-theme' ),
+		'priority' => 30,
+	) );
+
+	// Action 1 Text
+	$wp_customize->add_setting( 'redo_sidebar_action_1_text', array(
+		'default'   => __( 'Download kit', 'redo-theme' ),
+		'transport' => 'refresh',
+	) );
+	$wp_customize->add_control( 'redo_sidebar_action_1_text', array(
+		'label'    => __( 'Action 1 Text', 'redo-theme' ),
+		'section'  => 'redo_theme_sidebar_options',
+		'settings' => 'redo_sidebar_action_1_text',
+		'type'     => 'text',
+	) );
+
+	// Action 1 Link
+	$wp_customize->add_setting( 'redo_sidebar_action_1_url', array(
+		'default'   => '#',
+		'transport' => 'refresh',
+	) );
+	$wp_customize->add_control( 'redo_sidebar_action_1_url', array(
+		'label'    => __( 'Action 1 URL', 'redo-theme' ),
+		'section'  => 'redo_theme_sidebar_options',
+		'settings' => 'redo_sidebar_action_1_url',
+		'type'     => 'url',
+	) );
+
+	// Action 2 Text
+	$wp_customize->add_setting( 'redo_sidebar_action_2_text', array(
+		'default'   => __( 'Contact us', 'redo-theme' ),
+		'transport' => 'refresh',
+	) );
+	$wp_customize->add_control( 'redo_sidebar_action_2_text', array(
+		'label'    => __( 'Action 2 Text', 'redo-theme' ),
+		'section'  => 'redo_theme_sidebar_options',
+		'settings' => 'redo_sidebar_action_2_text',
+		'type'     => 'text',
+	) );
+
+	// Action 2 Link
+	$wp_customize->add_setting( 'redo_sidebar_action_2_url', array(
+		'default'   => '#',
+		'transport' => 'refresh',
+	) );
+	$wp_customize->add_control( 'redo_sidebar_action_2_url', array(
+		'label'    => __( 'Action 2 URL', 'redo-theme' ),
+		'section'  => 'redo_theme_sidebar_options',
+		'settings' => 'redo_sidebar_action_2_url',
+		'type'     => 'url',
+	) );
+}
+add_action( 'customize_register', 'redo_theme_customize_register' );
+
+/**
+ * Register Block Patterns.
+ */
+function redo_theme_register_block_patterns() {
+	register_block_pattern_category(
+		'redo-theme',
+		array( 'label' => __( 'Redo Theme', 'redo-theme' ) )
+	);
+
+	register_block_pattern(
+		'redo-theme/full-guidelines',
+		array(
+			'title'       => __( 'Full Brand Guidelines', 'redo-theme' ),
+			'description' => _x( 'The complete brand guidelines layout.', 'Block pattern description', 'redo-theme' ),
+			'categories'  => array( 'redo-theme' ),
+			'content'     => '<!-- wp:image {"sizeSlug":"full","linkDestination":"none"} --><figure class="wp-block-image size-full"><img src="' . get_template_directory_uri() . '/assets/images/Hero.png" alt=""/></figure><!-- /wp:image --> <!-- wp:group {"tagName":"section","className":"guidelines p-32","layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between"}} --><section class="wp-block-group guidelines p-32"><!-- wp:group {"className":"guide-heading","layout":{"type":"constrained"}} --><div class="wp-block-group guide-heading"><!-- wp:heading {"level":1,"className":"heading-1"} --><h1 class="wp-block-heading heading-1">Brand <br>Guidelines</h1><!-- /wp:heading --></div><!-- /wp:group --> <!-- wp:group {"className":"guide-content paragraph-1","layout":{"type":"constrained"}} --><div class="wp-block-group guide-content paragraph-1"><!-- wp:paragraph --><p>This guide defines the visual language, design style, and principles that shape a clear and consistent brand experience, no matter the team or area of expertise.</p><!-- /wp:paragraph --><!-- wp:paragraph --><p>At its core, Redo is about precision and clarity—just like our mission to correct financial errors and optimize balance sheets.</p><!-- /wp:paragraph --></div><!-- /wp:group --></section><!-- /wp:group -->',
+		)
+	);
+}
+add_action( 'init', 'redo_theme_register_block_patterns' );
+

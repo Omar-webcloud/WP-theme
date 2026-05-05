@@ -10,14 +10,12 @@
 get_header();
 ?>
 
-	<main id="primary" class="site-main">
-
-		<section class="error-404 not-found">
+		<section class="error-404 not-found p-32">
 			<header class="page-header">
-				<h1 class="page-title"><?php esc_html_e( 'Oops! That page can&rsquo;t be found.', 'redo-theme' ); ?></h1>
+				<h1 class="page-title heading-1"><?php esc_html_e( 'Oops! That page can&rsquo;t be found.', 'redo-theme' ); ?></h1>
 			</header><!-- .page-header -->
 
-			<div class="page-content">
+			<div class="page-content paragraph-1">
 				<p><?php esc_html_e( 'It looks like nothing was found at this location. Maybe try one of the links below or a search?', 'redo-theme' ); ?></p>
 
 					<?php
@@ -53,8 +51,6 @@ get_header();
 
 			</div><!-- .page-content -->
 		</section><!-- .error-404 -->
-
-	</main><!-- #main -->
 
 <?php
 get_footer();
