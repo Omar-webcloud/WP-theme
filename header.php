@@ -22,38 +22,39 @@
 
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
-<div id="page" class="site">
-	<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e( 'Skip to content', 'redo-theme' ); ?></a>
+<div class="container">
+    <div class="layout">
+        <!-- sidebar -->
+        <header class="sidebar">
+            <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="brand">
+                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/Vector.svg" alt="Brand logo" class="brand-logo" />
+            </a>
+            <div class="menu-toggle">
+                <button class="menu-toggle-btn">Menu</button>
+            </div>
+            <nav class="side-nav">
+                <?php
+                wp_nav_menu(
+                    array(
+                        'theme_location' => 'menu-1',
+                        'menu_id'        => 'primary-menu',
+                        'container'      => false,
+                        'menu_class'     => 'nav-list',
+                        // We will need a custom walker or dynamic logic to handle the <sup>01</sup> numbers if we want them perfect, 
+                        // but for now let's just output the standard menu.
+                    )
+                );
+                ?>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="sidebar-action">
+                    <a href="#" class="action-link">Download kit</a>
+                </div>
+                <div class="sidebar-action">
+                    <a href="#" class="action-link">Contact us</a>
+                </div>
+            </div>
+        </header>
 
-	<header id="masthead" class="site-header">
-		<div class="site-branding">
-			<?php
-			the_custom_logo();
-			if ( is_front_page() && is_home() ) :
-				?>
-				<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
-				<?php
-			else :
-				?>
-				<p class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></p>
-				<?php
-			endif;
-			$redo_theme_description = get_bloginfo( 'description', 'display' );
-			if ( $redo_theme_description || is_customize_preview() ) :
-				?>
-				<p class="site-description"><?php echo $redo_theme_description; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
-			<?php endif; ?>
-		</div><!-- .site-branding -->
-
-		<nav id="site-navigation" class="main-navigation">
-			<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Primary Menu', 'redo-theme' ); ?></button>
-			<?php
-			wp_nav_menu(
-				array(
-					'theme_location' => 'menu-1',
-					'menu_id'        => 'primary-menu',
-				)
-			);
-			?>
-		</nav><!-- #site-navigation -->
-	</header><!-- #masthead -->
+        <!-- content -->
+        <main id="primary" class="main-content site-main">

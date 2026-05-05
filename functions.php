@@ -9,7 +9,7 @@
 
 if ( ! defined( 'REDO_THEME_VERSION' ) ) {
 	// Replace the version number of the theme on each release.
-	define( 'REDO_THEME_VERSION', '1.0.0' );
+	define( 'REDO_THEME_VERSION', '1.0.1' );
 }
 
 /**
@@ -92,7 +92,13 @@ add_action( 'after_setup_theme', 'redo_theme_setup' );
  * Enqueue scripts and styles.
  */
 function redo_theme_scripts() {
+	// Standard Theme Style
 	wp_enqueue_style( 'redo-theme-style', get_stylesheet_uri(), array(), REDO_THEME_VERSION );
+	
+	// Ported Styles
+	wp_enqueue_style( 'redo-utils', get_template_directory_uri() . '/assets/css/redo-utils.css', array(), REDO_THEME_VERSION );
+	wp_enqueue_style( 'redo-main', get_template_directory_uri() . '/assets/css/redo-style.css', array( 'redo-utils' ), REDO_THEME_VERSION );
+
 	wp_style_add_data( 'redo-theme-style', 'rtl', 'replace' );
 
 	wp_enqueue_script( 'redo-theme-navigation', get_template_directory_uri() . '/assets/js/navigation.js', array(), REDO_THEME_VERSION, true );

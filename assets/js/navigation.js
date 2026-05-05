@@ -1,65 +1,36 @@
-/**
- * File navigation.js.
- *
- * Handles toggling the navigation menu for small screens and enables keyboard
- * accessibility for dropdown menus.
- */
-(function() {
-	const container = document.getElementById( 'site-navigation' );
-	if ( ! container ) {
-		return;
-	}
+const menuToggleBtn = document.querySelector(".menu-toggle-btn");
+const sidebar = document.querySelector(".sidebar");
 
-	const button = container.getElementsByTagName( 'button' )[0];
-	if ( 'undefined' === typeof button ) {
-		return;
-	}
+if (menuToggleBtn) {
+  menuToggleBtn.addEventListener("click", () => {
+    sidebar.classList.toggle("is-open");
+    menuToggleBtn.textContent = sidebar.classList.contains("is-open")
+      ? "Close"
+      : "Menu";
+  });
 
-	const menu = container.getElementsByTagName( 'ul' )[0];
+  document.addEventListener("click", (event) => {
+    if (window.innerWidth <= 779) {
+      const isClickInsideSidebar = sidebar.contains(event.target);
+      const isMenuButton =
+        event.target === menuToggleBtn || menuToggleBtn.contains(event.target);
 
-	// Hide menu toggle button if menu is empty and return early.
-	if ( 'undefined' === typeof menu ) {
-		button.style.display = 'none';
-		return;
-	}
+      if (
+        !isClickInsideSidebar &&
+        !isMenuButton &&
+        sidebar.classList.contains("is-open")
+      ) {
+        sidebar.classList.remove("is-open");
+        menuToggleBtn.textContent = "Menu";
+      }
+    }
+  });
+}
 
-	if ( ! menu.classList.contains( 'nav-menu' ) ) {
-		menu.classList.add( 'nav-menu' );
-	}
-
-	button.addEventListener( 'click', function() {
-		container.classList.toggle( 'toggled' );
-
-		if ( button.getAttribute( 'aria-expanded' ) === 'true' ) {
-			button.setAttribute( 'aria-expanded', 'false' );
-		} else {
-			button.setAttribute( 'aria-expanded', 'true' );
-		}
-	} );
-
-	// Get all the link elements within the menu.
-	const links = menu.getElementsByTagName( 'a' );
-
-	// Each time a menu link is focused or blurred, toggle focus.
-	for ( const link of links ) {
-		link.addEventListener( 'focus', toggleFocus, true );
-		link.addEventListener( 'blur', toggleFocus, true );
-	}
-
-	/**
-	 * Sets or removes .focus class on an element.
-	 */
-	function toggleFocus() {
-		if ( event.type === 'focus' || event.type === 'blur' ) {
-			let self = this;
-			// Move up through the ancestors of the current link until we hit .nav-menu.
-			while ( ! self.classList.contains( 'nav-menu' ) ) {
-				// On li elements toggle the class .focus.
-				if ( 'li' === self.tagName.toLowerCase() ) {
-					self.classList.toggle( 'focus' );
-				}
-				self = self.parentElement;
-			}
-		}
-	}
-}());
+document.querySelector(".nav-list").addEventListener("click", function (e) {
+  e.preventDefault();
+  if (e.target.classList.contains("nav-link")) {
+    let id = e.target.getAttribute("href");
+    document.querySelector(id).scrollIntoView({ behavior: "smooth" });
+  }
+});

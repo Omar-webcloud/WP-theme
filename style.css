@@ -4,26 +4,21 @@ Theme URI: https://example.com/
 Author: Mohammad Omar
 Author URI: https://example.com/
 Description: A high-end, custom WordPress theme built with modern standards.
-Version: 1.0.0
+Version: 1.0.1
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: redo-theme
 */
 
-/* --- Design System --- */
-:root {
-    --primary: #6366f1;
-    --primary-hover: #4f46e5;
-    --bg-dark: #0f172a;
-    --text-light: #f8fafc;
-    --text-muted: #94a3b8;
-    --accent: #f43f5e;
+/* Reset any previous dark mode settings */
+body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
 }
 
-body {
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    background-color: var(--bg-dark);
-    color: var(--text-light);
-    line-height: 1.6;
-    margin: 0;
+/* Ensure the layout container is also light */
+.container, .layout, .main-content {
+    background-color: #ffffff !important;
 }
+
+/* Ported Styles are loaded via assets/css/redo-style.css and redo-utils.css */
