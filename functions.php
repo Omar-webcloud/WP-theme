@@ -89,6 +89,24 @@ function redo_theme_setup() {
 add_action( 'after_setup_theme', 'redo_theme_setup' );
 
 /**
+ * Register widget area.
+ */
+function redo_theme_widgets_init() {
+	register_sidebar(
+		array(
+			'name'          => esc_html__( 'Sidebar', 'redo-theme' ),
+			'id'            => 'sidebar-1',
+			'description'   => esc_html__( 'Add widgets here.', 'redo-theme' ),
+			'before_widget' => '<section id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h2 class="widget-title">',
+			'after_title'   => '</h2>',
+		)
+	);
+}
+add_action( 'widgets_init', 'redo_theme_widgets_init' );
+
+/**
  * Enqueue scripts and styles.
  */
 function redo_theme_scripts() {
@@ -188,4 +206,29 @@ function redo_theme_register_block_patterns() {
 	);
 }
 add_action( 'init', 'redo_theme_register_block_patterns' );
+
+/**
+ * Filter the nav menu link attributes to add classes.
+ */
+function redo_theme_nav_menu_link_attributes( $atts, $item, $args ) {
+	if ( property_exists( $args, 'theme_location' ) && 'menu-1' === $args->theme_location ) {
+		$atts['class'] = ! empty( $atts['class'] ) ? $atts['class'] . ' nav-link paragraph-1' : 'nav-link paragraph-1';
+	}
+	return $atts;
+}
+add_filter( 'nav_menu_link_attributes', 'redo_theme_nav_menu_link_attributes', 10, 3 );
+
+/**
+ * Add numbers to menu items to match design.
+ */
+function redo_theme_nav_menu_item_title( $title, $item, $args, $depth ) {
+	if ( property_exists( $args, 'theme_location' ) && 'menu-1' === $args->theme_location ) {
+		static $count = 0;
+		$count++;
+		$number = str_pad( $count, 2, '0', STR_PAD_LEFT );
+		$title .= '<sup class="display">' . $number . '</sup>';
+	}
+	return $title;
+}
+add_filter( 'nav_menu_item_title', 'redo_theme_nav_menu_item_title', 10, 4 );
 
