@@ -104,6 +104,7 @@ function redo_theme_widgets_init() {
 			'after_title'   => '</h2>',
 		)
 	);
+<<<<<<< HEAD
 
 	register_sidebar(
 		array(
@@ -116,6 +117,8 @@ function redo_theme_widgets_init() {
 			'after_title'   => '</h3>',
 		)
 	);
+=======
+>>>>>>> a8c03c87e06d0c1b0f0f265c943c4b028e230216
 }
 add_action( 'widgets_init', 'redo_theme_widgets_init' );
 
@@ -224,12 +227,17 @@ add_action( 'init', 'redo_theme_register_block_patterns' );
  * Filter the nav menu link attributes to add classes.
  */
 function redo_theme_nav_menu_link_attributes( $atts, $item, $args ) {
+<<<<<<< HEAD
 	if ( property_exists( $args, 'theme_location' ) ) {
 		if ( 'menu-1' === $args->theme_location ) {
 			$atts['class'] = ! empty( $atts['class'] ) ? $atts['class'] . ' nav-link paragraph-1' : 'nav-link paragraph-1';
 		} elseif ( 'footer-menu' === $args->theme_location ) {
 			$atts['class'] = ! empty( $atts['class'] ) ? $atts['class'] . ' link' : 'link';
 		}
+=======
+	if ( property_exists( $args, 'theme_location' ) && 'menu-1' === $args->theme_location ) {
+		$atts['class'] = ! empty( $atts['class'] ) ? $atts['class'] . ' nav-link paragraph-1' : 'nav-link paragraph-1';
+>>>>>>> a8c03c87e06d0c1b0f0f265c943c4b028e230216
 	}
 	return $atts;
 }
