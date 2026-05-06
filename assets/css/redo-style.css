@@ -600,6 +600,42 @@ body {
   margin-left: auto;
 }
 
+.footer-widgets {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 40px;
+  padding: 40px;
+  border-top: var(--border);
+}
+
+.footer-widgets .widget-title {
+  font-size: 18px;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.footer-widgets .widget ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-widgets .widget ul li a {
+  color: var(--gray);
+  transition: color 0.3s ease;
+}
+
+.footer-widgets .widget ul li a:hover {
+  color: var(--black);
+}
+
+.footer-logo img {
+  max-width: 270px;
+  height: auto;
+  display: block;
+}
+
 @media (max-width: 1279px) {
   .layout {
     grid-template-columns: 1fr;
